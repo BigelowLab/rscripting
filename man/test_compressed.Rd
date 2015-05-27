@@ -10,7 +10,7 @@ test_compressed(filename)
 \item{filename}{the fully qualified name of the file to test}
 }
 \value{
-a character vector of 'zip', 'gzip' or "tgz", "unknown"
+a character vector of 'zip', 'gzip' or "tgz", "bzip2",  "unknown"
 }
 \description{
 Test if a given file is compressed by zip or tgz, gzip.

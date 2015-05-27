@@ -4,7 +4,9 @@
 \alias{Logger_log}
 \title{Log messages, possible echoed to the command line}
 \arguments{
-\item{...}{message parts, will be pasted together with paste.sep}
+\item{...}{message parts, passed to \code{sprintf} so should start
+with a formatting string followed by one or more arguments. See \code{do_sprintf}
+to control this behavior.}
 
 \item{leader}{character, statement prepended to the message}
 
@@ -17,6 +19,9 @@
 \item{do_timestamp}{logical, if TRUE append a timestamp to the message}
 
 \item{do_echo}{logical if TRUE then echo the output to the console.}
+
+\item{do_sprintf}{logical, if TRUE (the default) the ... arguments are passed to \code{sprintf}
+if false the ... are passed to \code{paste}}
 }
 \value{
 the message is returned invisibly

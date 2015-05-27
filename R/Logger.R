@@ -1,36 +1,49 @@
-# Logger.R
-# info, warn, error
+#' A Logger reference class for simple message logging
+#'
+#' @field name character, the name of the Logger
+#' @field filename the name of the file to write to
+#' @field timer TimekeeperRefClass object
+#' @field .echo logical, logical for internal use
+#' @field .hasfile logical, for internal use
+#' @field .timestamp logical, for internal use
+
 LoggerRefClass <- setRefClass("LoggerRefClass",
    fields = list(
       name = 'character',
-      echo = 'logical',
       filename = 'character',
-      hasfile = 'logical',
-      timestamp = 'logical',
-      timer = 'ANY'))
+      timer = 'ANY',
+      .echo = 'logical',
+      .hasfile = 'logical',
+      .timestamp = 'logical'))
 
 #' Log messages, possible echoed to the command line
 #' 
 #' @family Logger
 #' @name Logger_log
-#' @param ... message parts, will be pasted together with paste.sep
+#' @param ... message parts, passed to \code{sprintf} so should start
+#'    with a formatting string followed by one or more arguments. See \code{do_sprintf}
+#'    to control this behavior.
 #' @param leader character, statement prepended to the message
 #' @param paste.sep character, by default a space separates message parts
 #' @param append if TRUE then append to the log file, otherwise overwrite
 #' @param sep character, by default \code{\\n} separates one message from subsequent ones
 #' @param do_timestamp logical, if TRUE append a timestamp to the message
 #' @param do_echo logical if TRUE then echo the output to the console.
+#' @param do_sprintf logical, if TRUE (the default) the ... arguments are passed to \code{sprintf}
+#'    if false the ... are passed to \code{paste}
 #' @return the message is returned invisibly
 NULL
 LoggerRefClass$methods(
    log = function(..., leader = paste0('[',.self$name,']'), 
       paste.sep = " ", append = TRUE, sep = "\n",
-      do_timestamp = .self$timestamp, do_echo = .self$echo){
+      do_timestamp = .self$.timestamp, do_echo = .self$.echo,
+      do_sprintf = TRUE){
    
+   content <- if (do_sprintf) sprintf(...) else paste(..., collapse = paste.sep)
    msg <- ifelse(do_timestamp,
-      paste(leader, format(Sys.time()), ..., sep = paste.sep) ,
-      paste(leader, ..., sep = paste.sep) )
-   if (.self$hasfile) {
+      paste(leader, format(Sys.time()), content , sep = paste.sep) ,
+      paste(leader, content, sep = paste.sep) )
+   if (.self$.hasfile) {
       cat(msg, sep = sep, file = .self$filename, append = append)
    }
    if (do_echo) {
@@ -49,7 +62,7 @@ NULL
 LoggerRefClass$methods(
    setfilename = function(file){
       .self$field('filename',file)
-      .self$hasfile <- !is.na(.self$filename)
+      .self$.hasfile <- !is.na(.self$filename)
    })
 
 #' Output an informative message
@@ -116,24 +129,24 @@ NULL
 LoggerRefClass$methods(
    scriptreport = function(name = .self$name, 
       args = commandArgs(trailingOnly = FALSE), 
-      do_echo = .self$echo){
-   old_echo <- .self$echo
-   .self$echo <- do_echo
-   old_timestamp <- .self$timestamp
-   .self$timestamp <- FALSE
+      do_echo = .self$.echo){
+   old_echo <- .self$.echo
+   .self$.echo <- do_echo
+   old_timestamp <- .self$.timestamp
+   .self$.timestamp <- FALSE
    leader <- ""
-   .self$log("Script report for", name, "at", Sys.time(), leader = leader)
+   .self$log("Script report for %s at %s", name, Sys.time(), leader = leader)
    if (!is.null(args)) {
-      .self$log("   script args follow...",leader = leader)
-      .self$log( paste("      ", args, collapse = "\n"), leader = leader)
+      .self$log("   script args follow...",leader = leader, do_sprintf = FALSE)
+      .self$log( paste("      ", paste(args, collapse = " "), collapse = " "), leader = leader, do_sprintf = FALSE)
    }
-   .self$log("   whoami:", system("whoami", intern = TRUE), leader = leader)
-   .self$log("   hostname:", system("hostname", intern = TRUE), leader = leader)
-   .self$log("   Rscript:", system('bash --login -c "which Rscript"', intern = TRUE), leader = leader)
-   .self$log("   R:", system('bash --login -c "which R"', intern = TRUE), leader = leader)
-   .self$log("  ", R.version.string, leader = leader) 
-   .self$echo <- old_echo
-   .self$timestamp <- old_timestamp
+   .self$log("   whoami: %s", system("whoami", intern = TRUE), leader = leader)
+   .self$log("   hostname: %s", system("hostname", intern = TRUE), leader = leader)
+   .self$log("   Rscript: %s", Sys.which("Rscript"), leader = leader)
+   .self$log("   R: %s", Sys.which("R"), leader = leader)
+   .self$log("   %s", R.version.string, leader = leader) 
+   .self$.echo <- old_echo
+   .self$.timestamp <- old_timestamp
    invisible(NULL)
    })
    
@@ -160,10 +173,10 @@ Logger <- function(name = 'logger',
  
    X <- LoggerRefClass$new()
    X$field("name", name)
-   X$field("hasfile", !is.na(filename))
+   X$field(".hasfile", !is.na(filename))
    if (!is.na(filename)) X$setfilename(filename)
-   X$field("echo", do_echo)
-   X$field("timestamp", do_timestamp)
+   X$field(".echo", do_echo)
+   X$field(".timestamp", do_timestamp)
    X$field("timer", Timekeeper(name = name, start_watch = start_watch))
    #if (start_watch) X$info("begin logging")
    X

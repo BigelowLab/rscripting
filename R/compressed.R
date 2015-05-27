@@ -4,7 +4,7 @@
 #' @family COMPRESSED
 #' @export
 #' @param filename the fully qualified name of the file to test
-#' @return a character vector of 'zip', 'gzip' or "tgz", "unknown"
+#' @return a character vector of 'zip', 'gzip' or "tgz", "bzip2",  "unknown"
 test_compressed <- function(filename){
    ok <- is_zip(filename) ; if (ok) return("zip")
    ok <- is_tgz(filename) ; if (ok) return("tgz")
