@@ -126,7 +126,7 @@ un_zip <- function(filename, extra = "-x *MACOSX*/* *DS_Store*"){
    
    if (length(filename) > 1) return(lapply(filename, un_zip, extra = extra))
 
-   if (!is.zip(filename)) stop("Input file must be zipped")
+   if (!is_zip(filename)) stop("Input file must be zipped")
    
    oldDir <- setwd(dirname(filename))
    
@@ -159,7 +159,7 @@ un_tgz <- function(filename, extra = "-xf"){
 
    if (length(filename) > 1) return(lapply(filename, un_tgz))
    
-   if (!is.tgz(filename)) stop("Input file must be tarred and gzipped")
+   if (!is_tgz(filename)) stop("Input file must be tarred and gzipped")
    
    oldDir <- setwd(dirname(filename))
    
@@ -192,7 +192,7 @@ un_bzip2 <- function(filename, extra = "-xf"){
 
    if (length(filename) > 1) return(lapply(filename, un_bzip2))
    
-   if (!is.tgz(filename)) stop("Input file must be tarred and bzip2-ped")
+   if (!is_tgz(filename)) stop("Input file must be tarred and bzip2-ped")
    
    oldDir <- setwd(dirname(filename))
    
@@ -228,7 +228,7 @@ un_gz <- function(filename, out = NA, extra = "-d"){
 
    if (length(filename) > 1) return(lapply(filename, un_tgz))
    
-   if (!is.gzip(filename)) stop("Input file must be gzipped")
+   if (!is_gzip(filename)) stop("Input file must be gzipped")
    
    oldDir <- setwd(dirname(filename))
    FF0 <- dir( recursive = TRUE, full.names = TRUE)
