@@ -1,0 +1,60 @@
+---
+title: "commandArguments"
+author: "btupper@bigelow.org"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+This package provides tools stongly modeled after Python's [argparse](https://docs.python.org/2/howto/argparse.html)  The user simply specifies the expected arguments (including defaults for missing ones).  After arguments are parsed the user can get each argument by name or retrieve them all in a named list.  
+
+## Using commandArgs package
+
+At the heart of the the package is the `CommandArgs` and `Argument` reference classes.  The user need only interact with the `CommandArgs` class during typical useage.  By default this class captures the output of the built-in `commandsArgs(trailingOnly = FALSE)`, but, as in the example below, we can provide it alternative argument character vector as long as it conforms to the typical R and Rscript form of command line arguments.  Note that in this example in this example we have contrived a variety of space-delimited arguments including multiple element arguments.
+   
+```{r eval = FALSE}
+   # create an argument character vector typical of using Rscript
+   args <- c("/Library/Frameworks/R.framework/Resources/bin/exec/R", "--slave", 
+      "--no-restore", "--vanilla", "--file=/Users/Shared/code/R/test-scripts/commandArgs.Rscript", 
+      "--args", "--bob", "--no-bob" , "zip=", "itty", "doodah")
+   # create an instance where we explicitly provide our faked arguments
+   X <- CommandArgs(args)
+   # we now configure the expected arguments using the add_argument() method.  
+   # The first argument is the name and while flag is the pattern we use to locate the argument.
+   # logical arguments (flags?) can have type logical, set_true, or set_false
+   # not how bob and nobob have opposing logic
+   X$add_argument("bob", flag = "--bob", type = "set_true", default = FALSE)
+   X$add_argument("nobob", flag = "--no-bob", type = "set_false", default = TRUE)
+   # this argument specifies a numeric type, a default and an action (more on that later)
+   # NOTE that our example arguments do not specify the value of this argument so the default value is used.
+   X$add_argument("dog", flag = "dog=", type = "numeric", default = 3, 
+      required = FALSE, action = 'squareDog')
+   # finally we can have multi-element arguments, predefined choices
+   X$add_argument("zip", flag = "zip=", type = "character", narg = 2, 
+      choices = c("itty", "bitty", "doodah", "boom"), default = "boom")
+```
+Next we attend to the *action* specifed in the definition of the "dog" argument.  The action identifies a function that accepts an Argument reference class and returns any value.  The function is only called when the user requests the value of that argument.  For "dog" we specified "squareDog" so we must create a function of that name to operate on whatever is found in the `value` element of the Argument reference class. 
+```{r eval = FALSE}
+   squareDog <- function(x){
+      x$value[[1]]^2
+   }
+```
+Now we can parse the allow R to parse arguments after which we can retrieve the arguments by name.
+```{r eval = FALSE}
+   X$parse_arguments()
+   # print the whole shebang
+   X$show()
+   # or just 
+   X
+   #  get the values of the arguments
+   # NOTE dog was unspecified so the default '3' was used.  The action specified
+   # is called as we retrieve the argument so, in this case, we retrieved the square.
+   X$get("dog")
+   X$get("bob")
+   X$get("zip")
+   # if you prefer, you can simply get a named list of the arguments
+   X$get_all()
+```

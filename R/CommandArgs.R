@@ -146,7 +146,11 @@ CommandArgsRefClass$methods(
       names(name) <- name
       lapply(name, function(x, ARGS,...) {ARGS[[x]]$get(...)}, .self$Args, ...)
    })
-       
+    
+    
+# Note from Joe
+# the convention is single dash for single letter args and double dash for multi-letter
+   
 ######
 #     methods above, functions below
 ######

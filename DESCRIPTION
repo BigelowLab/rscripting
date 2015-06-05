@@ -8,3 +8,6 @@ Depends:
 Maintainer: Ben Tupper <btupper@bigelow.org>
 Author: Ben Tupper <btupper@bigelow.org>
 License: GPL (>= 2)
+Suggests:
+    knitr
+VignetteBuilder: knitr

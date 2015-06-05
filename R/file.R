@@ -100,11 +100,10 @@ file_parts <- function(filename, extSep = "."){
    } else {
       DIR <- dirname(filename)
       BASE <- basename(filename)
-      #s <- unlist(strsplit(BASE, extSep, fixed = TRUE))
       ix <- gregexpr(extSep, BASE, fixed =TRUE)[[1]]
       if (ix[1] > 0) {
          EXT <- substring(BASE, ix[length(ix)]+1, nchar(BASE))
-         name <- gsub(paste(extSep, ext, sep = ""), "", BASE, fixed = TRUE)
+         name <- gsub(paste0(extSep, EXT), "", BASE, fixed = TRUE)
       } else {
          EXT = ""
          name = BASE
