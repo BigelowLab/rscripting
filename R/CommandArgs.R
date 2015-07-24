@@ -38,8 +38,10 @@ CommandArgsRefClass$methods(
       if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
          trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
          nm <- names(.self$Args)
+         
          OK <- rep(FALSE, length(nm)) ; names(OK) <- nm
-         for (n in nm) OK[[n]] <- .self$Args[[n]]$parse_argument(trailingArgs)
+         for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
+
       } else {
          .self$print_help()
          OK <- FALSE

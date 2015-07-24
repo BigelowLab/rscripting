@@ -45,8 +45,8 @@ ArgumentRefClass <- setRefClass("ArgumentRefClass",
 #' @return logical indicating success
 NULL
 ArgumentRefClass$methods(
-   parse_argument = function(x){ 
-      parseArgument(.self,x)
+   parse_argument = function(x){
+      parseArgument(.self, x)
    })
 
 #' Print information about the object
@@ -174,17 +174,17 @@ Argument <- function(name,
 #' @param x the argument character vector to mine for flagged value
 #' @return logical indicating success/failure
 parseArgument <- function(X, x){
-   ok <- TRUE
+
    # if flag not present and required then throw a hissy
-   flag <- glob2rx(paste0("-+",X$flag))
-   ix <- grep(flag, x, fixed = TRUE)
+   flag <- paste0("-+",X$flag)
+   ix <- grep(flag, x)
    if ( (length(ix) == 0) && X$required ) { 
       cat(paste("parseArgument: flag not found but is required", X$name), "\n")
-      return(!ok)
+      return(FALSE)
    }
    # not provided? then use the default
    if (length(ix) == 0) {
-      return(ok)
+      return(TRUE)
    }
    # set_true, set_false means the argument flag is the value such as 
    # --plot --no-plot which have no trailing value
@@ -225,7 +225,7 @@ parseArgument <- function(X, x){
        NULL)
    if (is.null(value)) {
       cat(paste("parseArgument: Error converting the value to type -", X$type))
-      return(!ok)
+      return(FALSE)
    }
    if (!is.null(X$choices[[1]])) {
       ix <- value %in% X$choices[[1]]
@@ -233,9 +233,10 @@ parseArgument <- function(X, x){
          cat(paste("parseArgument: value not found in choices - value=", value))
          cat(paste("parseArgument: value not found in choices - choices=", 
             paste(X$choices[[1]], collapse = " ") ))
-         return(!ok)
+         return(FALSE)
       }
    }
+
    X$value <- list(value)
-   return(ok)
+   return(TRUE)
 }
