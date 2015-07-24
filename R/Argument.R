@@ -74,8 +74,16 @@ ArgumentRefClass$methods(
 NULL
 ArgumentRefClass$methods(
    print_help = function(){
-      cat(sprintf("%s %s", .self$flag, .self$name),"\n")
+      cat(sprintf("--%s %s", .self$flag, .self$type),"\n")
       if ((length(.self$help) > 0) && (nchar(.self$help) > 0) ) cat(sprintf("    %s", .self$help),"\n")
+      if (length(.self$default) > 0) {
+         cat(sprintf("    %s", "default: "))
+         if (length(.self$default) == 1) {
+            cat(.self$default[[1]], "\n")
+         } else {
+            print(.self$default)
+         }
+      } 
    })
 
 #' Get usage string
@@ -85,7 +93,7 @@ ArgumentRefClass$methods(
 NULL
 ArgumentRefClass$methods(
    get_usage = function(){
-      sprintf("[%s %s]", .self$flag, .self$name)
+      sprintf("[--%s %s]", .self$flag, .self$type)
    })
    
 #' Run the 'action' function

@@ -4,6 +4,7 @@
 ######
 CommandArgsRefClass <- setRefClass("CommandArgsRefClass",
    fields = list(
+      Name = 'character', #the name of the script
       cmdargs = 'character',  # character vector
       app = 'character',   # the name of the application
       options = 'character',    # character vector of --options
@@ -99,10 +100,11 @@ CommandArgsRefClass$methods(
 #' @name CommandArgs_print_help
 NULL
 CommandArgsRefClass$methods(
-   print_help = function(commandstring = 'program_name'){
+   print_help = function(commandstring = .self$Name){
       nm <- names(.self$Args)
       u <- sapply(.self$Args, function(x) x$get_usage())
-      u <- strwrap(c("Usage: ",commandstring, u), exdent = 5, width = 80)
+      u <- paste(c(commandstring, u), collapse = " ")
+      u <- strwrap(c("Usage: ", u), exdent = 5, width = 80)
       writeLines(u)
       cat("\nArgument details follow\n")
       for (n in nm) .self$Args[[n]]$print_help()
@@ -165,11 +167,13 @@ CommandArgsRefClass$methods(
 #' @param help a character vector of helpful information
 #' @return a CommandArgsRefClass instance
 CommandArgs <- function(args = commandArgs(trailingOnly = FALSE),
+   name = 'program_name', 
    help = NULL){
    x <- CommandArgsRefClass$new()
    x$field("Args", list())
    if (!is.null(args)) x$field("cmdargs", args)
-   if (!is.null(help)) x$field("help", help) 
+   if (!is.null(help)) x$field("help", help)
+   x$field("Name", name[1])
    x
 }
 
