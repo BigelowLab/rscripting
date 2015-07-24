@@ -4,8 +4,7 @@
 \alias{CommandArgs_parse_arguments}
 \title{Parse the argument vector into \code{\link{Argument}} objects}
 \arguments{
-\item{args}{input of the value of \code{\link{commandArgs}} or NULL to use
-what is already stored}
+\item{args}{input of the value of \code{\link{commandArgs}}}
 }
 \value{
 a vector of logicals, one per argument

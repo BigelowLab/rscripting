@@ -18,13 +18,12 @@ CommandArgsRefClass <- setRefClass("CommandArgsRefClass",
 #'
 #' @family CommandArgs
 #' @name CommandArgs_parse_arguments
-#' @param args input of the value of \code{\link{commandArgs}} or NULL to use
-#'    what is already stored
+#' @param args input of the value of \code{\link{commandArgs}} 
 #' @return a vector of logicals, one per argument
 NULL
 CommandArgsRefClass$methods(
-   parse_arguments = function(args=NULL){
-      if (!is.null(args)) x$field("cmdargs", args)
+   parse_arguments = function(args){
+      if (!missing(args)) .self$field("cmdargs", args)
       if (is.null(.self$cmdargs)) stop("args must be supplied in parse_arguments() or CommandArgs()")
       allargs <- .self$cmdargs
       .self$field("app", allargs[[1]])
@@ -43,10 +42,11 @@ CommandArgsRefClass$methods(
          OK <- rep(FALSE, length(nm)) ; names(OK) <- nm
          for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
-      } else {
-         .self$print_help()
-         OK <- FALSE
-      }
+      } 
+      #else {
+      #   .self$print_help()
+      #   OK <- FALSE
+      #}
       invisible(OK)
    })
 
