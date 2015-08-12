@@ -19,12 +19,21 @@ CommandArgsRefClass <- setRefClass("CommandArgsRefClass",
 #' @family CommandArgs
 #' @name CommandArgs_parse_arguments
 #' @param args input of the value of \code{\link{commandArgs}} 
+#' @param quit_if_help logical, if TRUE call \code{quit(...)} if arguments include -h or --help
+#' @param ... futher arguments for \code{quit(...)}
 #' @return a vector of logicals, one per argument
 NULL
 CommandArgsRefClass$methods(
-   parse_arguments = function(args){
+   parse_arguments = function(args, quit_if_help = FALSE, ...){
       if (!missing(args)) .self$field("cmdargs", args)
       if (is.null(.self$cmdargs)) stop("args must be supplied in parse_arguments() or CommandArgs()")
+      
+      
+      if (.self$help_called()){
+         .self$print_help()
+         if (quit_if_help) quit(...)
+      }
+      
       allargs <- .self$cmdargs
       .self$field("app", allargs[[1]])
       ix <- grep("--file", allargs)
@@ -35,10 +44,7 @@ CommandArgsRefClass$methods(
       
       OK <- TRUE
       ix <- grep("--args", allargs, fixed = TRUE)
-      if (any(grepl("--help", allargs, fixed = TRUE))){
-         .self$print_help()
-         OK <- FALSE
-      } else if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
+       if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
          trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
          nm <- names(.self$Args)
          
@@ -46,6 +52,7 @@ CommandArgsRefClass$methods(
          for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
       } 
+         
       invisible(OK)
    })
 
@@ -149,8 +156,22 @@ CommandArgsRefClass$methods(
       names(name) <- name
       lapply(name, function(x, ARGS,...) {ARGS[[x]]$get(...)}, .self$Args, ...)
    })
-    
-    
+   
+   
+#' Detect if user called for help using "--help" or "-h"
+#' 
+#' @family CommandArgs
+#' @name CommandArgs_help_called   
+#' @return logical, TRUE if --help or -h exists
+NULL
+CommandArgsRefClass$methods(
+   help_called = function(){
+      if (is.null(.self$cmdargs) || (nchar(.self$cmdargs) == 0)){
+         stop("CommandArgsRefClass$help_called requires that command args have been loaded")
+      }
+      any(.self$cmdargs == "--help") || any(.self$cmdargs == "-h")
+   })
+   
 # Note from Joe
 # the convention is single dash for single letter args and double dash for multi-letter
    

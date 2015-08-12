@@ -24,6 +24,7 @@ Get the value(s) of an argument
 Other CommandArgs: \code{\link{CommandArgs_add_argument}};
   \code{\link{CommandArgs_add}};
   \code{\link{CommandArgs_get_all}};
+  \code{\link{CommandArgs_help_called}};
   \code{\link{CommandArgs_parse_arguments}};
   \code{\link{CommandArgs_print_help}};
   \code{\link{CommandArgs_show}}; \code{\link{CommandArgs}}
@@ -31,6 +32,7 @@ Other CommandArgs: \code{\link{CommandArgs_add_argument}};
 Other CommandArgs: \code{\link{CommandArgs_add_argument}};
   \code{\link{CommandArgs_add}};
   \code{\link{CommandArgs_get_all}};
+  \code{\link{CommandArgs_help_called}};
   \code{\link{CommandArgs_parse_arguments}};
   \code{\link{CommandArgs_print_help}};
   \code{\link{CommandArgs_show}}; \code{\link{CommandArgs}}

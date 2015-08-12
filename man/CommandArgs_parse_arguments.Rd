@@ -5,6 +5,10 @@
 \title{Parse the argument vector into \code{\link{Argument}} objects}
 \arguments{
 \item{args}{input of the value of \code{\link{commandArgs}}}
+
+\item{quit_if_help}{logical, if TRUE call \code{quit(...)} if arguments include -h or --help}
+
+\item{...}{futher arguments for \code{quit(...)}}
 }
 \value{
 a vector of logicals, one per argument
@@ -18,6 +22,7 @@ Other CommandArgs: \code{\link{CommandArgs_add_argument}};
   \code{\link{CommandArgs_get_all}};
   \code{\link{CommandArgs_get}},
   \code{\link{CommandArgs_get}};
+  \code{\link{CommandArgs_help_called}};
   \code{\link{CommandArgs_print_help}};
   \code{\link{CommandArgs_show}}; \code{\link{CommandArgs}}
 }
