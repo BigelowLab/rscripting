@@ -35,7 +35,10 @@ CommandArgsRefClass$methods(
       
       OK <- TRUE
       ix <- grep("--args", allargs, fixed = TRUE)
-      if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
+      if (any(grepl("--help", allargs, fixed = TRUE))){
+         .self$print_help()
+         OK <- FALSE
+      } else if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
          trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
          nm <- names(.self$Args)
          
@@ -43,10 +46,6 @@ CommandArgsRefClass$methods(
          for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
       } 
-      #else {
-      #   .self$print_help()
-      #   OK <- FALSE
-      #}
       invisible(OK)
    })
 
