@@ -269,7 +269,7 @@ unpack_archive <- function(filename, ...){
 
    if (length(filename) > 1) return(lapply(filename, unpack_archive, ...))
       
-   R <- switch(test.compressed(filename),
+   R <- switch(test_compressed(filename),
       "zip" = un_zip(filename, ...),
       "tgz" = un_tgz(filename, ...),
       "gzip" = un_gz(filename, ...),
