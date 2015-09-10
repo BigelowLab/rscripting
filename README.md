@@ -1,6 +1,6 @@
 ##rscripting
  
-An R package for simple argument parsing, logging, configuration files and file/directory archiving.
+An R package for simple argument parsing, logging, configuration files, email, and file/directory archiving.
 
 ### Installation
 
@@ -22,3 +22,11 @@ Provides a `CommandArgsRefClass` reference class for parsing R and Rscript argum
 ### Configurations (INI-style file formatted data)
 
 Provides a `ConfiguratorRefClass` reference class for simple [INI-style](https://en.wikipedia.org/wiki/INI_file) formatted files.  See the [wiki](https://github.com/btupper/rscripting/wiki/Configurations) for details.
+
+### Email
+
+Provides wrapper functions to send mail using [nail](http://nail.sourceforge.net/) or [mutt](http://www.mutt.org/)
+
+### File/directory archiving
+
+Provides a function to `pack_directory` as tar.gz or .zip to compress a directory.  Also provides `unpack_archive` to unpack a compressed file and return a listing of it's contents.
