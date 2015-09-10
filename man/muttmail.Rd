@@ -25,7 +25,7 @@ muttmail(to = "name@somewhere.org", sbj = "mutt mail", msg = paste("at",
 Send a simple mail via mutt  - see \url{http://www.mutt.org/}
 }
 \seealso{
-Other mail: \code{\link{has_mutt}}, \code{\link{has_mutt}};
+Other mail: \code{\link{has_mutt}}; \code{\link{has_nail}};
   \code{\link{nailmail}}; \code{\link{sendmail}}
 }
 

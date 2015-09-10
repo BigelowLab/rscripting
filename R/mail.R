@@ -14,7 +14,7 @@ has_mutt <- function() {
 #' @family mail
 #' @export
 #' @return logical, TRUE if present
-has_mutt <- function() {
+has_nail <- function() {
    basename(Sys.which("nail")) == "nail"
 }
 

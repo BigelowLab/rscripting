@@ -19,7 +19,7 @@ A simple wrapper around the platforms email engine.  Currently \code{mutt} and
 \code{nail} are supported, but the host must have these installed.
 }
 \seealso{
-Other mail: \code{\link{has_mutt}}, \code{\link{has_mutt}};
+Other mail: \code{\link{has_mutt}}; \code{\link{has_nail}};
   \code{\link{muttmail}}; \code{\link{nailmail}}
 }
 

@@ -6,26 +6,16 @@
 See \url{http://www.mutt.org/}}
 \usage{
 has_mutt()
-
-has_mutt()
 }
 \value{
-logical, TRUE if present
-
 logical, TRUE if present
 }
 \description{
 Test if mutt is installed on the host platform
 See \url{http://www.mutt.org/}
-
-Test if nail is installed on the host platform
-See \url{http://nail.sourceforge.net/}
 }
 \seealso{
-Other mail: \code{\link{muttmail}}; \code{\link{nailmail}};
-  \code{\link{sendmail}}
-
-Other mail: \code{\link{muttmail}}; \code{\link{nailmail}};
-  \code{\link{sendmail}}
+Other mail: \code{\link{has_nail}}; \code{\link{muttmail}};
+  \code{\link{nailmail}}; \code{\link{sendmail}}
 }
 

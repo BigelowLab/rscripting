@@ -25,7 +25,7 @@ nailmail(to = "name@somewhere.org", sbj = "nail mail", msg = paste("at",
 Send a simple mail via nail  - see \url{http://linux.die.net/man/1/nail}
 }
 \seealso{
-Other mail: \code{\link{has_mutt}}, \code{\link{has_mutt}};
+Other mail: \code{\link{has_mutt}}; \code{\link{has_nail}};
   \code{\link{muttmail}}; \code{\link{sendmail}}
 }
 
