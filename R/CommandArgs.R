@@ -38,18 +38,18 @@ CommandArgsRefClass$methods(
       .self$field("app", allargs[[1]])
       ix <- grep("--file", allargs)
       if (length(ix[[1]]) > 0){
-         .self$field("filename", gsub("--file=", "", allargs[ix[[1]]]))
+         .self$field("filename", gsub("--file=", "", allargs[ix[[1]]+1]))
          if (ix > 2) .self$field("options", allargs[2:(ix[1]-1)])
       }
       
       OK <- TRUE
       ix <- grep("--args", allargs, fixed = TRUE)
-       if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
-         trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
-         nm <- names(.self$Args)
-         
-         OK <- rep(FALSE, length(nm)) ; names(OK) <- nm
-         for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
+      if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
+        trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
+        nm <- names(.self$Args)
+        
+        OK <- rep(FALSE, length(nm)) ; names(OK) <- nm
+        for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
       } 
          

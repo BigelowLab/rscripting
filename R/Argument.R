@@ -161,7 +161,8 @@ Argument <- function(name,
    if (missing(name)) stop("name is required")
    x$field("name", name[1])
    if (is.null(flag)) flag = x$name
-   x$field("flag", flag)
+   # be sure to strip any leading dashes
+   x$field("flag", gsub("^-+", "", flag))
    x$field("choices", list(choices))
    x$field("default", list(default))
    x$field("value", list(x$default[[1]]))
