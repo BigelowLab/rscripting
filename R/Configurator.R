@@ -64,7 +64,7 @@ ConfiguratorRefClass$methods(
       if (!file.exists(filename)) stop(paste("file must exist: ", filename))
       #x <- scan(filename, what = character(), quiet = TRUE, sep = "\n")
       x <- readLines(filename)
-      ix <- grep("[", x, fixed = TRUE)
+      ix <- grep("^\\[", x)
       if (length(ix) == 0) {
          stop("No section [headers] found in config file - please check file")
       }

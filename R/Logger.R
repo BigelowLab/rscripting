@@ -39,7 +39,11 @@ LoggerRefClass$methods(
       do_timestamp = .self$.timestamp, do_echo = .self$.echo,
       do_sprintf = TRUE){
    
-   content <- if (do_sprintf) sprintf(...) else paste(..., collapse = paste.sep)
+   if (length(list(...)) < 2){
+      content <- paste(..., collapse = paste.sep)
+   } else {
+      content <- if (do_sprintf) sprintf(...) else paste(..., collapse = paste.sep)
+   }
    msg <- ifelse(do_timestamp,
       paste(leader, format(Sys.time()), content , sep = paste.sep) ,
       paste(leader, content, sep = paste.sep) )
