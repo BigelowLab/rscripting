@@ -1,6 +1,7 @@
 Package: rscripting
 Title: Simple tools for scripting with Rscript
-Description: A package for simplified for argument parsing, logging, configuration files and file/directory archiving.
+Description: A package for simplified for argument parsing, logging,
+    configuration files and file/directory archiving.
 Version: 0.1
 Depends:
     R (>= 3.0),
@@ -8,3 +9,4 @@ Depends:
 Maintainer: Ben Tupper <btupper@bigelow.org>
 Author: Ben Tupper <btupper@bigelow.org>
 License: GPL (>= 2)
+RoxygenNote: 5.0.1
