@@ -5,6 +5,11 @@
 \alias{rscripting}
 \alias{rscripting-package}
 \title{rscritping: convenience tools for Rscript and more}
+\description{
+The rscritping package provides a numbr of conveneince tools to help the
+developer manage scripting, argument parsing, timing, file archiving and
+the like.
+}
 \section{Argument parsing}{
 
 
@@ -64,7 +69,8 @@
    # create CommandArgs instance using our dummy arguments
    X <- CommandArgs(args)
    
-   # define 4 different arguments, two logicals, one with an 'action' and one with multiple elements 
+   # define 4 different arguments, two logicals, one with an 'action' 
+   #  and one with multiple elements 
    X$add_argument("bob", type = "set_true", default = FALSE)
    X$add_argument("nobob", flag = "--no-bob", type = "set_false", default = TRUE)
    X$add_argument("dog", type = "numeric", default = 3, 

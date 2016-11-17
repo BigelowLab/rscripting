@@ -11,6 +11,8 @@ CommandArgs(args = commandArgs(trailingOnly = FALSE), name = "program_name",
 \item{args}{a character vector as returned by \code{\link{commandArgs}} 
 or NULL}
 
+\item{name}{character name of the object}
+
 \item{help}{a character vector of helpful information}
 }
 \value{

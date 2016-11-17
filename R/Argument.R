@@ -205,7 +205,7 @@ parseArgument <- function(X, x){
       if (X$nargs < 0){
          # if nargs must be guessed at then we guess the next possible flag
          # NOTE we assume flags start with at least '-'
-         k <- grep(glob2rx("-*"), x)
+         k <- grep("^-", x)
          j <- k[k > ix[1]]
          if (length(j) == 0) {
             # if there are no further flags then we take the remainder

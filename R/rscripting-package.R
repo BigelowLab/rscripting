@@ -1,9 +1,13 @@
-#' @title rscritping: convenience tools for Rscript and more
+#' rscritping: convenience tools for Rscript and more
 #'
+#' The rscritping package provides a numbr of conveneince tools to help the
+#' developer manage scripting, argument parsing, timing, file archiving and
+#' the like.
 #'
 #' @name rscripting
 #' @docType package
-#' 
+#' @importFrom methods new
+#'
 #' @section Argument parsing:
 #'
 #'    Convenience handling of Rscript arguments modeled after Python's
@@ -61,7 +65,8 @@
 #'    # create CommandArgs instance using our dummy arguments
 #'    X <- CommandArgs(args)
 #'    
-#'    # define 4 different arguments, two logicals, one with an 'action' and one with multiple elements 
+#'    # define 4 different arguments, two logicals, one with an 'action' 
+#'    #  and one with multiple elements 
 #'    X$add_argument("bob", type = "set_true", default = FALSE)
 #'    X$add_argument("nobob", flag = "--no-bob", type = "set_false", default = TRUE)
 #'    X$add_argument("dog", type = "numeric", default = 3, 

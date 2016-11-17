@@ -19,7 +19,7 @@ system_memory <- function(extra = ""){
     if (nchar(extra) > 0) free_cmd <- paste(free_cmd, extra)
     x <- system(free_cmd, intern = TRUE)
     y <- gsub("[[:space:]]+", ",", x)
-    z <- read.table(text = y[1:2], header = TRUE, row.names = 1, sep = ",")
+    z <- utils::read.table(text = y[1:2], header = TRUE, row.names = 1, sep = ",")
     z[,'used_p'] <- z[,'used']/z[,'total'] * 100
     z[,'free_p'] <- z[,'free']/z[,'total'] * 100
     z

@@ -7,11 +7,11 @@
 get_temp_filename(pattern = "", path = get_temp_dirname(), ext = "")
 }
 \arguments{
+\item{pattern}{character if provided this will be prepended on the filename returned}
+
 \item{path}{charcater the path to attach the file within}
 
 \item{ext}{charcater any extension to add to the filename generated}
-
-\item{description}{character if provided this will be prepended on the filename returned}
 }
 \description{
 Create a temporary file name

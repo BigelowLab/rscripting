@@ -30,7 +30,7 @@ get_temp_dirname <- function(pattern = "", ramdisk = file.exists("/dev/shm"), cr
 #'
 #' @family FILE
 #' @export
-#' @param description character if provided this will be prepended on the filename returned
+#' @param pattern character if provided this will be prepended on the filename returned
 #' @param path charcater the path to attach the file within
 #' @param ext charcater any extension to add to the filename generated
 get_temp_filename <- function(pattern = "", path = get_temp_dirname(), ext = ''){
