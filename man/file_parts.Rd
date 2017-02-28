@@ -23,4 +23,3 @@ Other FILE: \code{\link{cp_dir}},
   \code{\link{get_temp_dirname}},
   \code{\link{get_temp_filename}}, \code{\link{rsync_dirs}}
 }
-

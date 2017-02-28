@@ -18,4 +18,3 @@ See \url{http://www.mutt.org/}
 Other mail: \code{\link{has_nail}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
-
