@@ -1,6 +1,6 @@
 ##rscripting
  
-An R package for simple argument parsing, logging, configuration files, email, and file/directory archiving.
+An R package for simple argument parsing, logging, configuration files, email, file/directory archiving, and simple string processing helpers.
 
 ### Installation
 
@@ -30,3 +30,7 @@ Provides wrapper functions to send mail using [nail](http://nail.sourceforge.net
 ### File/directory archiving
 
 Provides a function to `pack_directory` as tar.gz or .zip to compress a directory.  Also provides `unpack_archive` to unpack a compressed file and return a listing of it's contents.
+
+### String processing
+
+Provides functions to string leading and/or trailing spaces `str_trim()` as well as multiple pattern matching on character vectors `mgrepl`.
