@@ -6,6 +6,8 @@
 #' @param filename the fully qualified name of the file to test
 #' @return a character vector of 'zip', 'gzip' or "tgz", "bzip2",  "unknown"
 test_compressed <- function(filename){
+   if (missing(filename)) stop("filename is required")
+   if (!file.exists(filename)) stop("file not found:", filename)    
    ok <- is_zip(filename) ; if (ok) return("zip")
    ok <- is_tgz(filename) ; if (ok) return("tgz")
    ok <- is_gzip(filename) ; if (ok) return("gzip")
@@ -23,10 +25,9 @@ test_compressed <- function(filename){
 #' @param filename the fully qualified name of the file to test
 #' @return logical, TRUE if the input is likely gzipped
 is_tgz <- function(filename) {
-   if (missing(filename)) stop("filename is required")
    if (length(filename) > 1) return(sapply(filename, is_tgz))
    fi <- file.info(filename)
-   if (fi[,"isdir"]) return(FALSE)
+   if (fi[1,"isdir"]) return(FALSE)
    
    con <- file(filename, open = "rb")
    x = readBin(con, "raw", size = 1, n = 4, endian = "little")
@@ -53,6 +54,8 @@ is_gzip <- function(filename){
    #   (0x8b, \213), to identify the file as being in gzip format.
    
    if (missing(filename)) stop("filename is required")
+   if (!file.exists(filename)) stop("file not found:", filename)
+
    if (length(filename) > 1) return(sapply(filename, is_gzip))
    fi <- file.info(filename)
    if (fi[,"isdir"]) return(FALSE)
@@ -81,6 +84,7 @@ is_bzip2 <- function(filename){
    #   (0x8b, \213), to identify the file as being in gzip format.
    
    if (missing(filename)) stop("filename is required")
+   if (!file.exists(filename)) stop("file not found:", filename)
    if (length(filename) > 1) return(sapply(filename, is_gzip))
    fi <- file.info(filename)
    if (fi[,"isdir"]) return(FALSE)
@@ -100,6 +104,8 @@ is_bzip2 <- function(filename){
 is_zip <- function(filename){
 
    if (missing(filename)) stop("filename is required")
+   if (!file.exists(filename)) stop("file not found:", filename)
+
    if (length(filename) > 1) return(sapply(filename, is_zip))
    fi <- file.info(filename)
    if (fi[,"isdir"]) return(FALSE)
