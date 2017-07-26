@@ -23,3 +23,4 @@ Other COMPRESSED: \code{\link{is_bzip2}},
   \code{\link{un_tgz}}, \code{\link{un_zip}},
   \code{\link{unpack_archive}}
 }
+

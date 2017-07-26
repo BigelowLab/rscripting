@@ -2,8 +2,8 @@
 % Please edit documentation in R/Timekeeper.R
 \docType{class}
 \name{TimekeeperRefClass-class}
-\alias{TimekeeperRefClass-class}
 \alias{TimekeeperRefClass}
+\alias{TimekeeperRefClass-class}
 \title{A class for storing one or more StopwatchRefClass objects}
 \description{
 A class for storing one or more StopwatchRefClass objects
@@ -13,5 +13,4 @@ A class for storing one or more StopwatchRefClass objects
 \describe{
 \item{\code{fob}}{a lost of StopwatchRefClass objects}
 }}
-
 

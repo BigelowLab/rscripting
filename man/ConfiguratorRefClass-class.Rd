@@ -2,8 +2,8 @@
 % Please edit documentation in R/Configurator.R
 \docType{class}
 \name{ConfiguratorRefClass-class}
-\alias{ConfiguratorRefClass-class}
 \alias{ConfiguratorRefClass}
+\alias{ConfiguratorRefClass-class}
 \title{A class for configuration elements}
 \description{
 A class for configuration elements
@@ -21,7 +21,6 @@ A class for configuration elements
 
 \item{\code{comm}}{the default comment character ("#") flagging comment lines}
 }}
-
 \section{Methods}{
 
 \describe{

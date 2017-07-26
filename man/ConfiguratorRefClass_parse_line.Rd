@@ -20,3 +20,4 @@ Other CONFIGURATOR: \code{\link{ConfiguratorRefClass_get}},
   \code{\link{ConfiguratorRefClass_write_file}},
   \code{\link{Configurator}}
 }
+

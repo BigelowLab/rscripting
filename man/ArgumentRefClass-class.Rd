@@ -2,8 +2,8 @@
 % Please edit documentation in R/Argument.R
 \docType{class}
 \name{ArgumentRefClass-class}
-\alias{ArgumentRefClass-class}
 \alias{ArgumentRefClass}
+\alias{ArgumentRefClass-class}
 \title{ArgumentRefClass to manage one argument}
 \description{
 ArgumentRefClass to manage one argument
@@ -42,5 +42,4 @@ is to allow the user to specify a name like 'bosworth' for an argumeent flagged 
 
 \item{\code{help}}{a character vector of help text}
 }}
-
 

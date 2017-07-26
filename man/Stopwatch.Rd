@@ -45,3 +45,4 @@ Other Stopwatch Timekeeper: \code{\link{Timekeeper_elapsed}},
   \code{\link{Timekeeper_start}},
   \code{\link{Timekeeper_stop}}, \code{\link{Timekeeper}}
 }
+

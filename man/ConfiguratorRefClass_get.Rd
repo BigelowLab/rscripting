@@ -29,3 +29,4 @@ Other CONFIGURATOR: \code{\link{ConfiguratorRefClass_parse_line}},
   \code{\link{ConfiguratorRefClass_write_file}},
   \code{\link{Configurator}}
 }
+

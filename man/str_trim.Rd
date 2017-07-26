@@ -19,3 +19,4 @@ trimmed character vector of same length as the input
 \description{
 Trim leading spaces, trailing spaces or both.
 }
+

@@ -24,7 +24,7 @@ CommandArgsRefClass <- setRefClass("CommandArgsRefClass",
 #' @return a vector of logicals, one per argument
 NULL
 CommandArgsRefClass$methods(
-   parse_arguments = function(args, quit_if_help = FALSE, ...){
+   parse_arguments = function(args, quit_if_help = !interactive(), ...){
       if (!missing(args)) .self$field("cmdargs", args)
       if (is.null(.self$cmdargs)) stop("args must be supplied in parse_arguments() or CommandArgs()")
       

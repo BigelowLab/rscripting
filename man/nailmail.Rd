@@ -28,3 +28,4 @@ Send a simple mail via nail  - see \url{http://linux.die.net/man/1/nail}
 Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{muttmail}}, \code{\link{sendmail}}
 }
+

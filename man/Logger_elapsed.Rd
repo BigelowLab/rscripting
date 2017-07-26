@@ -13,3 +13,4 @@ Other Logger: \code{\link{Logger_error}},
   \code{\link{Logger_setfilename}},
   \code{\link{Logger_warn}}, \code{\link{Logger}}
 }
+

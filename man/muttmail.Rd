@@ -28,3 +28,4 @@ Send a simple mail via mutt  - see \url{http://www.mutt.org/}
 Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
+

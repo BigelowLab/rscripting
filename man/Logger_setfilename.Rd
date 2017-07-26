@@ -16,3 +16,4 @@ Other Logger: \code{\link{Logger_elapsed}},
   \code{\link{Logger_scriptreport}},
   \code{\link{Logger_warn}}, \code{\link{Logger}}
 }
+

@@ -23,3 +23,4 @@ logical vector
 Perform grepl on multiple patterns; it's like  AND-ing or OR-ing successive
  grepl statements.
 }
+

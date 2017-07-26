@@ -17,3 +17,4 @@ data.frame or NULL
 Retrieves information on the system memory resources on platforms where the
 `free` command exists.
 }
+

@@ -74,7 +74,12 @@ ArgumentRefClass$methods(
 NULL
 ArgumentRefClass$methods(
    print_help = function(){
-      cat(sprintf("--%s %s", .self$flag, .self$type),"\n")
+      if (.self$required){
+          txt <- sprintf("--%s (required, type '%s')", .self$flag, .self$type)
+      } else {
+          txt <- sprintf("--%s (type '%s')", .self$flag, .self$type)
+      }
+      cat(txt,"\n")
       if ((length(.self$help) > 0) && (nchar(.self$help) > 0) ) cat(sprintf("    %s", .self$help),"\n")
       if (length(.self$default) > 0) {
          cat(sprintf("    %s", "default: "))
@@ -83,7 +88,7 @@ ArgumentRefClass$methods(
          } else {
             print(.self$default)
          }
-      } 
+      }
    })
 
 #' Get usage string

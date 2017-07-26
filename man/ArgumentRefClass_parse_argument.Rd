@@ -20,3 +20,4 @@ Other Argument: \code{\link{ArgumentRefClass_getAction}},
   \code{\link{ArgumentRefClass_show}},
   \code{\link{Argument}}, \code{\link{parseArgument}}
 }
+
