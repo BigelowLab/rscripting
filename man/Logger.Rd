@@ -4,7 +4,7 @@
 \alias{Logger}
 \title{Create a LoggerRefClass object}
 \usage{
-Logger(name = "logger", filename = NA, do_echo = TRUE,
+Logger(name = "logger", filename = NA, do_echo = interactive(),
   do_timestamp = TRUE, start_watch = TRUE)
 }
 \arguments{

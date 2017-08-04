@@ -171,7 +171,7 @@ LoggerRefClass$methods(
 #' @return a LoggerRefClass object
 Logger <- function(name = 'logger', 
    filename = NA, 
-   do_echo = TRUE,
+   do_echo = interactive(),
    do_timestamp = TRUE,
    start_watch = TRUE) {
  
