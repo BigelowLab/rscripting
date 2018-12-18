@@ -1,7 +1,7 @@
-#' Retrieve a temporary directory name 
+#' Retrieve a temporary directory name
 #'
 #' This fucntion attempts to create uniquely name directories.
-#' 
+#'
 #' @family FILE
 #' @export
 #' @param pattern character if provided this will be prepended on the temp directory returned
@@ -19,7 +19,7 @@ get_temp_dirname <- function(pattern = "", ramdisk = file.exists("/dev/shm"), cr
       stub <- tempdir()
    }
    path <- tempfile(pattern=pattern, tmpdir = stub)
-   if (create){ 
+   if (create){
       ok <- dir.create(path, recursive = TRUE)
       if (!ok) warning(paste("Unable to create temporary directory", path))
    }
@@ -37,40 +37,40 @@ get_temp_filename <- function(pattern = "", path = get_temp_dirname(), ext = '')
 
    file.path(path, basename(tempfile(pattern = pattern, fileext = ext )) )
 }
- 
+
 
 #' Sync two directories using the system \code{rsync}
 #'
-#' In rsync there is a complete test on the change of a file before copying.  Using 
+#' In rsync there is a complete test on the change of a file before copying.  Using
 #' cp_dir perfoms a simpler test for changes, so it might be faster.  I think for
 #' most pipeline uses it may be better to use cp_dir since pipelines are a once-and-done
-#' task. 
+#' task.
 #'
 #' @family FILE
 #' @export
-#' @param src character the fully qualified source directory 
+#' @param src character the fully qualified source directory
 #' @param dst character the fully qualified destination directory
 #' @param flags charcater flags for rsync, by default '-rvc'
 #' @return the output of the systems rsync command (0 = good!)
 rsync_dirs <- function(src, dst, flags = '-rcv'){
-   if (file.exists(src[1]) && file.exists(dst[1]) ){ 
+   if (file.exists(src[1]) && file.exists(dst[1]) ){
       cmd <- sprintf("rsync %s %s %s", flags, src, dst)
       ok <- system2(cmd)
    } else {
       cat("Please verify that src and dst exist\n")
-      ok <- 1 
+      ok <- 1
    }
    ok
 }
 
-#' Copy the contents of one directory to another using system's \code{cp}.  
+#' Copy the contents of one directory to another using system's \code{cp}.
 #'
 #' Note that differs from rsync_dirs
-#' 
+#'
 #'
 #' @family FILE
 #' @export
-#' @param src character the fully qualified source directory 
+#' @param src character the fully qualified source directory
 #' @param dst character the fully qualified destination directory
 #' @param flags charcater flags for cp, by default "-uR"
 #' @return the output of the systems cp command (0 = good!)
@@ -80,21 +80,42 @@ cp_dir <- function(src, dst, flags = "-uR"){
       ok <- system2(cmd)
    } else {
       cat("Please verify that src and dst exist\n")
-      ok <- 1 
-   }  
+      ok <- 1
+   }
    ok
 }
 
+
+#' Strip one or more extensions off one or more filenames
+#'
+#' Greedy behavior is optional.  Given filename \code{/B/b/B.csv.txt}
+#'     greedy behavior yields \code{/B/b/B} while lazy behavior yields \code{/B/b/B.csv}
+#'
+#' @seealso \url{https://stackoverflow.com/questions/2301285/what-do-lazy-and-greedy-mean-in-the-context-of-regular-expressions}
+#' @export
+#' @param x character vector of one or more filenames
+#' @param greedy logical if TRUE remove all extensions
+#' @return filenames without extensions
+strip_extension <- function(
+	x = c("/A/A.txt", "/B/b/B.csv.txt", "/C/c.C/C.foo"),
+	greedy = FALSE){
+	pattern = if (greedy) "(.*?)\\..*$" else  "(.*)\\..*$"
+
+    sub(pattern = pattern, replacement = "\\1", x)
+}
+
+
+
 #' Divide a fully qualified filename into directory, name and extension parts
 #'
-#' @family FILE 
+#' @family FILE
 #' @export
 #' @param filename the fully qaulified file name to parse
 #' @param extSep the extension separator
-#' @return a character vector of file parts, or a list of 
+#' @return a character vector of file parts, or a list of
 #'    character vectors if the input has more than one element
 file_parts <- function(filename, extSep = "."){
-   
+
    if (length(filename) > 1) {
       r <- lapply(filename, file_parts)
    } else {
@@ -107,7 +128,7 @@ file_parts <- function(filename, extSep = "."){
       } else {
          EXT = ""
          name = BASE
-      }   
+      }
       r <- c(dir = DIR, name = name, ext = EXT)
    }
    return(r)

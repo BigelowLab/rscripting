@@ -25,4 +25,3 @@ This fucntion attempts to create uniquely name directories.
 Other FILE: \code{\link{cp_dir}}, \code{\link{file_parts}},
   \code{\link{get_temp_filename}}, \code{\link{rsync_dirs}}
 }
-

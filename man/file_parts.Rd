@@ -12,7 +12,7 @@ file_parts(filename, extSep = ".")
 \item{extSep}{the extension separator}
 }
 \value{
-a character vector of file parts, or a list of 
+a character vector of file parts, or a list of
    character vectors if the input has more than one element
 }
 \description{
@@ -23,4 +23,3 @@ Other FILE: \code{\link{cp_dir}},
   \code{\link{get_temp_dirname}},
   \code{\link{get_temp_filename}}, \code{\link{rsync_dirs}}
 }
-

@@ -17,7 +17,7 @@ rsync_dirs(src, dst, flags = "-rcv")
 the output of the systems rsync command (0 = good!)
 }
 \description{
-In rsync there is a complete test on the change of a file before copying.  Using 
+In rsync there is a complete test on the change of a file before copying.  Using
 cp_dir perfoms a simpler test for changes, so it might be faster.  I think for
 most pipeline uses it may be better to use cp_dir since pipelines are a once-and-done
 task.
@@ -27,4 +27,3 @@ Other FILE: \code{\link{cp_dir}}, \code{\link{file_parts}},
   \code{\link{get_temp_dirname}},
   \code{\link{get_temp_filename}}
 }
-

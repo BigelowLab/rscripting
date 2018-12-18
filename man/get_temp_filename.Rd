@@ -20,4 +20,3 @@ Create a temporary file name
 Other FILE: \code{\link{cp_dir}}, \code{\link{file_parts}},
   \code{\link{get_temp_dirname}}, \code{\link{rsync_dirs}}
 }
-

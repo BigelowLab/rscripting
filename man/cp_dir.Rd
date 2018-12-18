@@ -24,4 +24,3 @@ Other FILE: \code{\link{file_parts}},
   \code{\link{get_temp_dirname}},
   \code{\link{get_temp_filename}}, \code{\link{rsync_dirs}}
 }
-

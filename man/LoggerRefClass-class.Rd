@@ -2,8 +2,8 @@
 % Please edit documentation in R/Logger.R
 \docType{class}
 \name{LoggerRefClass-class}
-\alias{LoggerRefClass}
 \alias{LoggerRefClass-class}
+\alias{LoggerRefClass}
 \title{A Logger reference class for simple message logging}
 \description{
 A Logger reference class for simple message logging
@@ -23,4 +23,5 @@ A Logger reference class for simple message logging
 
 \item{\code{.timestamp}}{logical, for internal use}
 }}
+
 

@@ -44,6 +44,7 @@ the like.
    See \url{http://effbot.org/librarybook/configparser.htm} and 
    \url{http://docs.python.org/release/2.6.8/library/configparser.html} for inspiration.
 }
+
 \examples{
 \dontrun{   
 ###
@@ -157,4 +158,3 @@ the like.
    timer$elapsed("master")
 }
 }
-
