@@ -14,5 +14,7 @@ Other Logger: \code{\link{Logger_elapsed}},
   \code{\link{Logger_error}}, \code{\link{Logger_info}},
   \code{\link{Logger_log}},
   \code{\link{Logger_scriptreport}},
-  \code{\link{Logger_warn}}, \code{\link{Logger}}
+  \code{\link{Logger_tail}}, \code{\link{Logger_warn}},
+  \code{\link{Logger}}
 }
+\concept{Logger}

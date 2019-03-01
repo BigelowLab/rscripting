@@ -18,3 +18,4 @@ See \url{http://nail.sourceforge.net/}
 Other mail: \code{\link{has_mutt}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
+\concept{mail}

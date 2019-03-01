@@ -14,10 +14,12 @@ LoggerRefClass <- setRefClass("LoggerRefClass",
       timer = 'ANY',
       .echo = 'logical',
       .hasfile = 'logical',
-      .timestamp = 'logical'))
+      .timestamp = 'logical',
+      .autoroll = 'logical',
+      .rollsize = 'integer'))
 
 #' Log messages, possible echoed to the command line
-#' 
+#'
 #' @family Logger
 #' @name Logger_log
 #' @param ... message parts, passed to \code{sprintf} so should start
@@ -34,11 +36,11 @@ LoggerRefClass <- setRefClass("LoggerRefClass",
 #' @return the message is returned invisibly
 NULL
 LoggerRefClass$methods(
-   log = function(..., leader = paste0('[',.self$name,']'), 
+   log = function(..., leader = paste0('[',.self$name,']'),
       paste.sep = " ", append = TRUE, sep = "\n",
       do_timestamp = .self$.timestamp, do_echo = .self$.echo,
       do_sprintf = TRUE){
-   
+
    if (length(list(...)) < 2){
       content <- paste(..., collapse = paste.sep)
    } else {
@@ -58,7 +60,7 @@ LoggerRefClass$methods(
    })
 
 #' Set the filename attribute
-#' 
+#'
 #' @family Logger
 #' @name Logger_setfilename
 #' @param file the name of the file
@@ -70,7 +72,7 @@ LoggerRefClass$methods(
    })
 
 #' Output an informative message
-#' 
+#'
 #' @name Logger_info
 #' @family Logger
 #' @param ... message parts, will be pasted together with paste.sep
@@ -78,11 +80,11 @@ LoggerRefClass$methods(
 NULL
 LoggerRefClass$methods(
    info = function(..., leader = paste0('[', .self$name,' info]')){
-      .self$log(..., leader = leader) 
+      .self$log(..., leader = leader)
    })
 
 #' Output a warning message
-#' 
+#'
 #' @name Logger_warn
 #' @family Logger
 #' @param ... message parts, will be pasted together with paste.sep
@@ -90,11 +92,11 @@ LoggerRefClass$methods(
 NULL
 LoggerRefClass$methods(
    warn = function(..., leader = paste0('[', .self$name,' warning]')){
-      .self$log(..., leader = leader) 
+      .self$log(..., leader = leader)
    })
-   
+
 #' Output an error message
-#' 
+#'
 #' @name Logger_error
 #' @family Logger
 #' @param ... message parts, will be pasted together with paste.sep
@@ -102,23 +104,23 @@ LoggerRefClass$methods(
 NULL
 LoggerRefClass$methods(
    error = function(..., leader = paste0('[', .self$name,' error]')){
-      .self$log(..., leader = leader) 
+      .self$log(..., leader = leader)
    })
-   
+
 #' Output the elapsed time
 #'
 #' Useage: X$elapsed(name = 1)
 #
 #' @name Logger_elapsed
-#' @family Logger 
+#' @family Logger
 NULL
 LoggerRefClass$methods(
    elapsed = function(watchname = .self$name){
       .self$info(.self$timer$elapsed(name = watchname) )
    })
-   
+
 #' Create a script report
-#' 
+#'
 #' @family Logger
 #' @name Logger_scriptreport
 #' @param name character, the name of the script or what have you
@@ -131,8 +133,8 @@ LoggerRefClass$methods(
 #' }
 NULL
 LoggerRefClass$methods(
-   scriptreport = function(name = .self$name, 
-      args = commandArgs(trailingOnly = FALSE), 
+   scriptreport = function(name = .self$name,
+      args = commandArgs(trailingOnly = FALSE),
       do_echo = .self$.echo){
    old_echo <- .self$.echo
    .self$.echo <- do_echo
@@ -148,19 +150,75 @@ LoggerRefClass$methods(
    .self$log("   hostname: %s", system("hostname", intern = TRUE), leader = leader)
    .self$log("   Rscript: %s", Sys.which("Rscript"), leader = leader)
    .self$log("   R: %s", Sys.which("R"), leader = leader)
-   .self$log("   %s", R.version.string, leader = leader) 
+   .self$log("   %s", R.version.string, leader = leader)
    .self$.echo <- old_echo
    .self$.timestamp <- old_timestamp
    invisible(NULL)
    })
-   
+
+
+#' Retrieve the tail of a log file
+#'
+#' @family Logger
+#' @name Logger_tail
+#' @param n number of lines to retrieve
+NULL
+LoggerRefClass$methods(
+    tail = function(n = 10){
+
+
+    if (!file.exists(.self$filename)){
+        .self$error("unable to tail as the log file doesn't exist yet")
+        return(character(0))
+    }
+    app <- Sys.which("tail")
+    if (nchar(app) > 0){
+        cmd <- sprintf("%s -n %i %s", app, as.integer(n), .self$filename)
+        x <- system(cmd, intern = TRUE)
+    } else {
+        .self$error("tail command not found")
+       x <-  character(0)
+    }
+
+
+    x
+    })
+
+
+#' Roll the log file to a new one based upon file size
+#'
+#' @name Logger_roll
+#' @param max_size numeric the maximum log file size in bytes to trigger rotation
+#' @return invisible, the size of the current log file (possibly rotated)
+NULL
+LoggerRefClass$methods(
+    roll = function(max_size = 1e5){
+
+    if (!file.exists(.self$filename)){
+        .self$error("unable to roll as the log file doesn't exist yet")
+        return(0L)
+    }
+
+    fi = file.info(.self$filename)
+    if (fi$size[1] > max_size){
+        ff  = list.files(dirname(.self$filename),
+                         pattern = glob2rx(paste0(basename(.self$filename),".*")),
+                         full.names = TRUE, recursive = FALSE)
+        dst = paste0(.self$filename, ".", length(ff)+1)
+        ok  = file.rename(.self$filename, dst)
+        cat("[New Log File]", as.character(Sys.time()), "\n",
+            file = .self$filename, append = FALSE)
+        fi = file.info(.self$filename)
+    }
+    invisible(fi$size[1])
+    })
 
 ######
 #     methods-above functions-below
 ######
 
 #' Create a LoggerRefClass object
-#' 
+#'
 #' @family Logger
 #' @export
 #' @param name the name of the logger, I usually make it the name of the script
@@ -168,13 +226,18 @@ LoggerRefClass$methods(
 #' @param do_echo logical to output to sterr
 #' @param do_timestamp if TRUE then prepend a time stamp to messages
 #' @param start_watch logical, if TRUE start the stopwatch
+#' @param roll_file logical, if TRUE then check to see if the file should be rolled
+#'      before use.
+#' @param ... further arguments for rolling the log file
 #' @return a LoggerRefClass object
-Logger <- function(name = 'logger', 
-   filename = NA, 
+Logger <- function(name = 'logger',
+   filename = NA,
    do_echo = interactive(),
    do_timestamp = TRUE,
-   start_watch = TRUE) {
- 
+   start_watch = TRUE,
+   roll_file = TRUE,
+   roll_size = 100000L) {
+
    X <- LoggerRefClass$new()
    X$field("name", name)
    X$field(".hasfile", !is.na(filename))
@@ -182,7 +245,8 @@ Logger <- function(name = 'logger',
    X$field(".echo", do_echo)
    X$field(".timestamp", do_timestamp)
    X$field("timer", Timekeeper(name = name, start_watch = start_watch))
-   #if (start_watch) X$info("begin logging")
+   X$field(".autoroll",  roll_file)
+   X$field(".rollsize", roll_size)
+   if (X$.autoroll) bytes = X$roll_file(max_size = X$.rollsize)
    X
 }
-      

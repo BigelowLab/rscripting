@@ -5,7 +5,8 @@
 \title{Create a LoggerRefClass object}
 \usage{
 Logger(name = "logger", filename = NA, do_echo = interactive(),
-  do_timestamp = TRUE, start_watch = TRUE)
+  do_timestamp = TRUE, start_watch = TRUE, roll_file = TRUE,
+  roll_size = 100000L)
 }
 \arguments{
 \item{name}{the name of the logger, I usually make it the name of the script}
@@ -17,6 +18,11 @@ Logger(name = "logger", filename = NA, do_echo = interactive(),
 \item{do_timestamp}{if TRUE then prepend a time stamp to messages}
 
 \item{start_watch}{logical, if TRUE start the stopwatch}
+
+\item{roll_file}{logical, if TRUE then check to see if the file should be rolled
+before use.}
+
+\item{...}{further arguments for rolling the log file}
 }
 \value{
 a LoggerRefClass object
@@ -30,5 +36,6 @@ Other Logger: \code{\link{Logger_elapsed}},
   \code{\link{Logger_log}},
   \code{\link{Logger_scriptreport}},
   \code{\link{Logger_setfilename}},
-  \code{\link{Logger_warn}}
+  \code{\link{Logger_tail}}, \code{\link{Logger_warn}}
 }
+\concept{Logger}

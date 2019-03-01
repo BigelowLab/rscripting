@@ -4,8 +4,9 @@
 \alias{nailmail}
 \title{Send a simple mail via nail  - see \url{http://linux.die.net/man/1/nail}}
 \usage{
-nailmail(to = "name@somewhere.org", sbj = "nail mail", msg = paste("at",
-  Sys.time(), "you have nail mail"), attachment = NA, verbose = TRUE)
+nailmail(to = "name@somewhere.org", sbj = "nail mail",
+  msg = paste("at", Sys.time(), "you have nail mail"), attachment = NA,
+  verbose = TRUE)
 }
 \arguments{
 \item{to}{a character vector of one or more valid email addresses}
@@ -28,3 +29,4 @@ Send a simple mail via nail  - see \url{http://linux.die.net/man/1/nail}
 Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{muttmail}}, \code{\link{sendmail}}
 }
+\concept{mail}

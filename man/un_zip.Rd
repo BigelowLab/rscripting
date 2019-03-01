@@ -27,3 +27,4 @@ Other COMPRESSED: \code{\link{is_bzip2}},
   \code{\link{un_gz}}, \code{\link{un_tgz}},
   \code{\link{unpack_archive}}
 }
+\concept{COMPRESSED}

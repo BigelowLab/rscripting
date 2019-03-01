@@ -4,7 +4,8 @@
 \alias{str_trim}
 \title{Trim leading spaces, trailing spaces or both.}
 \usage{
-str_trim(x, where = c("leading", "trailing", "both")[3], replace_with = "")
+str_trim(x, where = c("leading", "trailing", "both")[3],
+  replace_with = "")
 }
 \arguments{
 \item{x}{character vector}

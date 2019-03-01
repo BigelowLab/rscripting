@@ -4,8 +4,9 @@
 \alias{muttmail}
 \title{Send a simple mail via mutt  - see \url{http://www.mutt.org/}}
 \usage{
-muttmail(to = "name@somewhere.org", sbj = "mutt mail", msg = paste("at",
-  Sys.time(), "you have mutt mail"), attachment = NA, verbose = TRUE)
+muttmail(to = "name@somewhere.org", sbj = "mutt mail",
+  msg = paste("at", Sys.time(), "you have mutt mail"), attachment = NA,
+  verbose = TRUE)
 }
 \arguments{
 \item{to}{a character vector of one or more valid email addresses}
@@ -28,3 +29,4 @@ Send a simple mail via mutt  - see \url{http://www.mutt.org/}
 Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
+\concept{mail}

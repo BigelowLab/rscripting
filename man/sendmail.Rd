@@ -22,3 +22,4 @@ A simple wrapper around the platforms email engine.  Currently \code{mutt} and
 Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{muttmail}}, \code{\link{nailmail}}
 }
+\concept{mail}

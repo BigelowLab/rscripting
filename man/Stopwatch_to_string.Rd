@@ -19,3 +19,4 @@ Other Stopwatch: \code{\link{Stopwatch_add_elapsed}},
   \code{\link{Stopwatch_start}},
   \code{\link{Stopwatch_stop}}
 }
+\concept{Stopwatch}

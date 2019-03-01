@@ -5,8 +5,8 @@
 \title{Create a zipped or tarred and gzipped archive of a directory}
 \usage{
 pack_directory(directory, fmt = c("tgz", "zip")[1],
-  outfile = file.path(dirname(directory), paste0(basename(directory), c(tgz =
-  ".tar.gz", zip = ".zip")[fmt])))
+  outfile = file.path(dirname(directory), paste0(basename(directory),
+  c(tgz = ".tar.gz", zip = ".zip")[fmt])))
 }
 \arguments{
 \item{directory}{one or more directories to pack. NOTE they are not packed together.}
@@ -29,3 +29,4 @@ Other COMPRESSED: \code{\link{is_bzip2}},
   \code{\link{un_tgz}}, \code{\link{un_zip}},
   \code{\link{unpack_archive}}
 }
+\concept{COMPRESSED}

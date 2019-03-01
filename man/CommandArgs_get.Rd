@@ -2,7 +2,6 @@
 % Please edit documentation in R/CommandArgs.R
 \name{CommandArgs_get}
 \alias{CommandArgs_get}
-\alias{CommandArgs_get}
 \title{Test is the named argument is present}
 \arguments{
 \item{name}{the name of the argument to test}
@@ -38,3 +37,4 @@ Other CommandArgs: \code{\link{CommandArgs_add_argument}},
   \code{\link{CommandArgs_print_help}},
   \code{\link{CommandArgs_show}}, \code{\link{CommandArgs}}
 }
+\concept{CommandArgs}
