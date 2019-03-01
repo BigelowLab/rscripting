@@ -247,6 +247,6 @@ Logger <- function(name = 'logger',
    X$field("timer", Timekeeper(name = name, start_watch = start_watch))
    X$field(".autoroll",  roll_file)
    X$field(".rollsize", roll_size)
-   if (X$.autoroll) bytes = X$roll_file(max_size = X$.rollsize)
+   if (X$.autoroll) bytes = X$roll(max_size = X$.rollsize)
    X
 }
