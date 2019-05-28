@@ -12,13 +12,13 @@ CommandArgsRefClass <- setRefClass("CommandArgsRefClass",
       Args = 'list',  # of ArgumentRefClass objects
       help = 'character')
    )
-   
-   
+
+
 #' Parse the argument vector into \code{\link{Argument}} objects
 #'
 #' @family CommandArgs
 #' @name CommandArgs_parse_arguments
-#' @param args input of the value of \code{\link{commandArgs}} 
+#' @param args input of the value of \code{\link{commandArgs}}
 #' @param quit_if_help logical, if TRUE call \code{quit(...)} if arguments include -h or --help
 #' @param ... futher arguments for \code{quit(...)}
 #' @return a vector of logicals, one per argument
@@ -27,13 +27,13 @@ CommandArgsRefClass$methods(
    parse_arguments = function(args, quit_if_help = !interactive(), ...){
       if (!missing(args)) .self$field("cmdargs", args)
       if (is.null(.self$cmdargs)) stop("args must be supplied in parse_arguments() or CommandArgs()")
-      
-      
+
+
       if (.self$help_called()){
          .self$print_help()
          if (quit_if_help) quit(...)
       }
-      
+
       allargs <- .self$cmdargs
       .self$field("app", allargs[[1]])
       ix <- grep("--file", allargs, fixed = TRUE)
@@ -41,18 +41,18 @@ CommandArgsRefClass$methods(
          .self$field("filename", gsub("--file=", "", allargs[ix[[1]]+1], fixed = TRUE))
          if (ix > 2) .self$field("options", allargs[2:(ix[1]-1)])
       }
-      
+
       OK <- TRUE
       ix <- grep("--args", allargs, fixed = TRUE)
       if ((length(ix) > 0) && (length(allargs) > ix[1] ) ) {
         trailingArgs <- allargs[(ix[1] + 1) : length(allargs)]
         nm <- names(.self$Args)
-        
+
         OK <- rep(FALSE, length(nm)) ; names(OK) <- nm
         for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
-      } 
-         
+      }
+
       invisible(OK)
    })
 
@@ -99,7 +99,7 @@ CommandArgsRefClass$methods(
       nm <- names(.self$Args)
       for (n in nm) .self$Args[[n]]$show()
    })
-  
+
 #' Print usage help
 #'
 #' @family CommandArgs
@@ -116,11 +116,11 @@ CommandArgsRefClass$methods(
       for (n in nm) .self$Args[[n]]$print_help()
    })
 
-  
+
 #' Test is the named argument is present
 #'
 #' @family CommandArgs
-#' @name CommandArgs_get   
+#' @name CommandArgs_get
 #' @param name the name of the argument to test
 #' @return logical indicating is (or is not) present
 NULL
@@ -130,9 +130,9 @@ CommandArgsRefClass$methods(
    })
 
 #' Get the value(s) of an argument
-#' 
+#'
 #' @family CommandArgs
-#' @name CommandArgs_get   
+#' @name CommandArgs_get
 #' @param name the name of the argument to retrieve
 #' @param ... futher arguments for the \code{Argument$get()} method requested
 #' @return the value of the argument (type varies)
@@ -141,12 +141,12 @@ CommandArgsRefClass$methods(
    get = function(name, ...){
       .self$Args[[name]]$get(...)
    })
-  
+
 
 #' Get all arguments
-#' 
+#'
 #' @family CommandArgs
-#' @name CommandArgs_get_all   
+#' @name CommandArgs_get_all
 #' @param ... futher arguments for the \code{Argument$get()} method requested
 #' @return a list of key-value pairs
 NULL
@@ -156,12 +156,12 @@ CommandArgsRefClass$methods(
       names(name) <- name
       lapply(name, function(x, ARGS,...) {ARGS[[x]]$get(...)}, .self$Args, ...)
    })
-   
-   
+
+
 #' Detect if user called for help using "--help" or "-h"
-#' 
+#'
 #' @family CommandArgs
-#' @name CommandArgs_help_called   
+#' @name CommandArgs_help_called
 #' @return logical, TRUE if --help or -h exists
 NULL
 CommandArgsRefClass$methods(
@@ -171,24 +171,24 @@ CommandArgsRefClass$methods(
       }
       any(.self$cmdargs == "--help") || any(.self$cmdargs == "-h")
    })
-   
+
 # Note from Joe
 # the convention is single dash for single letter args and double dash for multi-letter
-   
+
 ######
 #     methods above, functions below
 ######
 #' Generate a CommandArgs reference
-#' 
+#'
 #' @family CommandArgs
 #' @export
-#' @param args a character vector as returned by \code{\link{commandArgs}} 
+#' @param args a character vector as returned by \code{\link{commandArgs}}
 #'    or NULL
 #' @param name character name of the object
 #' @param help a character vector of helpful information
 #' @return a CommandArgsRefClass instance
 CommandArgs <- function(args = commandArgs(trailingOnly = FALSE),
-   name = 'program_name', 
+   name = 'program_name',
    help = NULL){
    x <- CommandArgsRefClass$new()
    x$field("Args", list())
@@ -198,3 +198,26 @@ CommandArgs <- function(args = commandArgs(trailingOnly = FALSE),
    x
 }
 
+
+#' Retrieve dummy arguments ala \code{commandArgs(trailingOnly = FALSE)}
+#'
+#' Note that the value returned is a hint or reminder.  Your best bet is to test drive
+#' your own configuration.
+#'
+#' @export
+#' @param os character the name of the operating system to mimic.
+#' @return character vector of typical command arguments
+dummy_commandArgs <- function(os = c("linux", "darwin")[1]){
+
+
+   leader <- switch(tolower(os[1]),
+        "linux" = c( "/usr/lib64/R/bin/exec/R", "--slave", "--no-restore", "--vanilla"),
+        "darwin"= c("/Library/Frameworks/R.framework/Resources/bin/exec/R", "--no-save",
+                    "--no-restore", "--no-site-file", "--no-environ"))
+   c(leader,
+     "--file=/bipitty/bopitty/boo.Rscript",
+     "--args",
+     "--foo",        "bar",
+     "--date",        format(Sys.Date(), "%j"),
+     "--version",    "v0.00")
+}
