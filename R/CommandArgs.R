@@ -39,6 +39,7 @@ CommandArgsRefClass$methods(
       ix <- grep("--file", allargs, fixed = TRUE)
       if (length(ix) > 0){
          .self$field("filename", gsub("--file=", "", allargs[ix[[1]]], fixed = TRUE))
+         if (.self$name == "program_name") .self$field("Name", basename(.self$filename))
          if (ix > 2) .self$field("options", allargs[2:(ix[1]-1)])
       }
 
