@@ -27,19 +27,12 @@ CommandArgsRefClass$methods(
    parse_arguments = function(args, quit_if_help = !interactive(), ...){
       if (!missing(args)) .self$field("cmdargs", args)
       if (is.null(.self$cmdargs)) stop("args must be supplied in parse_arguments() or CommandArgs()")
-
-
-      if (.self$help_called()){
-         .self$print_help()
-         if (quit_if_help) quit(...)
-      }
-
       allargs <- .self$cmdargs
       .self$field("app", allargs[[1]])
       ix <- grep("--file", allargs, fixed = TRUE)
       if (length(ix) > 0){
          .self$field("filename", gsub("--file=", "", allargs[ix[[1]]], fixed = TRUE))
-         if (.self$name == "program_name") .self$field("Name", basename(.self$filename))
+         if (.self$Name == "program_name") .self$field("Name", basename(.self$filename))
          if (ix > 2) .self$field("options", allargs[2:(ix[1]-1)])
       }
 
@@ -53,7 +46,10 @@ CommandArgsRefClass$methods(
         for (n in nm) OK[n] <- .self$Args[[n]]$parse_argument(trailingArgs)
 
       }
-
+      if (.self$help_called()){
+         .self$print_help()
+         if (quit_if_help) quit(...)
+      }
       invisible(OK)
    })
 
