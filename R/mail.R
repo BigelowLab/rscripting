@@ -19,9 +19,19 @@ has_nail <- function() {
 }
 
 
+#' Test if mail is installed on the host platform
+#'
+#' @family mail
+#' @export
+#' @return logical, TRUE if present
+has_mail <- function() {
+   Sys.which("mail") != ""
+}
+
+
 #' Send an email from R using the underlying mail services.
 #' 
-#' A simple wrapper around the platforms email engine.  Currently \code{mutt} and
+#' A simple wrapper around the platforms email engine.  Currently \code{mail}, \code{mutt} and
 #' \code{nail} are supported, but the host must have these installed.
 #' 
 #' @family mail
@@ -29,9 +39,10 @@ has_nail <- function() {
 #' @param ... arguments for the mailer of choice. Currently, only mutt is supported.
 #' @param what the name of the mail engine to use, currently 'nail' and 'mutt' are supported
 #' @return value returned by the system-level mail program, non-zero for failure.
-sendmail <- function(..., what = c('nail', 'mutt')[1]){
+sendmail <- function(..., what = c('mail', 'nail', 'mutt')[1]){
    
    switch(tolower(what),
+      'mail' = mailmail(...),
       "mutt" = muttmail(...),
       "nail" = nailmail(...),
       1)
@@ -48,7 +59,7 @@ sendmail <- function(..., what = c('nail', 'mutt')[1]){
 #' @param attachment the fully qualified filename to attach (if any, NA to skip)
 #' @param verbose  logical, if TRUE then echo the command
 #' @return 0 for success and non-zero otherwise
-muttmail <- function(to = "name@somewhere.org", 
+muttmail <- function(to = "btupper@bigelow.org", 
    sbj = "mutt mail", 
    msg = paste("at", Sys.time(), "you have mutt mail"), 
    attachment = NA,
@@ -83,7 +94,7 @@ muttmail <- function(to = "name@somewhere.org",
 #' @param attachment the fully qualified filename to attach (if any, NA to skip)
 #' @param verbose  logical, if TRUE then echo the command
 #' @return 0 for success and non-zero otherwise
-nailmail <- function(to = "name@somewhere.org", 
+nailmail <- function(to = "btupper@bigelow.org", 
    sbj = "nail mail", 
    msg = paste("at", Sys.time(), "you have nail mail"), 
    attachment = NA,
@@ -105,4 +116,47 @@ nailmail <- function(to = "name@somewhere.org",
    # clean up
    if (hasMsg) unlink(msgFile)
    return(ok)
+}
+
+
+
+#' Send a simple mail via mail  - see \url{http://linux.die.net/man/1/nail}
+#'
+#' @family mail
+#' @export
+#' @param to a character vector of one or more valid email addresses
+#' @param sbj a character for the subject line (required)
+#' @param msg - a character vector of one or more lines for the message body (NA to skip)
+#' @param attachment the fully qualified filename to attach (if any, NA to skip)
+#' @param verbose  logical, if TRUE then echo the command
+#' @return 0 for success and non-zero otherwise
+mailmail <- function(to = "btupper@bigelow.org", 
+   sbj = "mail mail", 
+   msg = paste("at", Sys.time(), "you have mail mail"), 
+   attachment = NA,
+   verbose = TRUE){
+     
+   mailapp <- Sys.which("mail")
+   if ( mailapp == "") stop("mail application not available")
+      
+   # https://tecadmin.net/ways-to-send-email-from-linux-command-line/ 
+   # mail -a [attachment] -s [subject] <to> < [message]
+      
+   # store the message in a temporary file
+   msgfile <- tempfile()
+   cat(msg, sep = "\n", file = msgfile)
+      
+   cmd <- sprintf("-s %s %s < %s", sbj, paste(to, collapse = ","), msgfile)
+   if (!is.null(attachment)){
+     cmd <- sprintf("-a %s %s", attachment, cmd)
+   } 
+   
+   # speak?
+   if (verbose) cat(paste(mailapp,cmd), "\n")  
+     
+   ok <- system2(mailapp, args = cmd)
+      
+   unlink(msgfile)  
+      
+   return(ok)  
 }

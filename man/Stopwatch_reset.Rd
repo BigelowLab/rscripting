@@ -18,4 +18,3 @@ Other Stopwatch: \code{\link{Stopwatch_add_elapsed}},
   \code{\link{Stopwatch_stop}},
   \code{\link{Stopwatch_to_string}}
 }
-\concept{Stopwatch}

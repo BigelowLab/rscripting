@@ -15,7 +15,7 @@ Test if mutt is installed on the host platform
 See \url{http://www.mutt.org/}
 }
 \seealso{
-Other mail: \code{\link{has_nail}}, \code{\link{muttmail}},
+Other mail: \code{\link{has_mail}}, \code{\link{has_nail}},
+  \code{\link{mailmail}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
-\concept{mail}

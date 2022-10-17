@@ -4,7 +4,7 @@
 \alias{sendmail}
 \title{Send an email from R using the underlying mail services.}
 \usage{
-sendmail(..., what = c("nail", "mutt")[1])
+sendmail(..., what = c("mail", "nail", "mutt")[1])
 }
 \arguments{
 \item{...}{arguments for the mailer of choice. Currently, only mutt is supported.}
@@ -15,11 +15,11 @@ sendmail(..., what = c("nail", "mutt")[1])
 value returned by the system-level mail program, non-zero for failure.
 }
 \description{
-A simple wrapper around the platforms email engine.  Currently \code{mutt} and
+A simple wrapper around the platforms email engine.  Currently \code{mail}, \code{mutt} and
 \code{nail} are supported, but the host must have these installed.
 }
 \seealso{
-Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
+Other mail: \code{\link{has_mail}}, \code{\link{has_mutt}},
+  \code{\link{has_nail}}, \code{\link{mailmail}},
   \code{\link{muttmail}}, \code{\link{nailmail}}
 }
-\concept{mail}

@@ -19,4 +19,3 @@ Other Logger: \code{\link{Logger_elapsed}},
   \code{\link{Logger_setfilename}},
   \code{\link{Logger_tail}}, \code{\link{Logger}}
 }
-\concept{Logger}

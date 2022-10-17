@@ -20,4 +20,3 @@ Other Stopwatch Timekeeper: \code{\link{Stopwatch}},
   \code{\link{Timekeeper_start}},
   \code{\link{Timekeeper_stop}}, \code{\link{Timekeeper}}
 }
-\concept{Stopwatch Timekeeper}

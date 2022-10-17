@@ -4,8 +4,8 @@
 \alias{CommandArgs}
 \title{Generate a CommandArgs reference}
 \usage{
-CommandArgs(args = commandArgs(trailingOnly = FALSE),
-  name = "program_name", help = NULL)
+CommandArgs(args = commandArgs(trailingOnly = FALSE), name = "program_name",
+  help = NULL)
 }
 \arguments{
 \item{args}{a character vector as returned by \code{\link{commandArgs}}
@@ -31,4 +31,3 @@ Other CommandArgs: \code{\link{CommandArgs_add_argument}},
   \code{\link{CommandArgs_print_help}},
   \code{\link{CommandArgs_show}}
 }
-\concept{CommandArgs}

@@ -29,4 +29,3 @@ Other CONFIGURATOR: \code{\link{ConfiguratorRefClass_get}},
   \code{\link{ConfiguratorRefClass_show}},
   \code{\link{ConfiguratorRefClass_write_file}}
 }
-\concept{CONFIGURATOR}

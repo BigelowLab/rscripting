@@ -17,4 +17,3 @@ Other Logger: \code{\link{Logger_elapsed}},
   \code{\link{Logger_setfilename}},
   \code{\link{Logger_warn}}, \code{\link{Logger}}
 }
-\concept{Logger}

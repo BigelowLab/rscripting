@@ -14,4 +14,3 @@ Other Argument: \code{\link{ArgumentRefClass_getAction}},
   \code{\link{ArgumentRefClass_print_help}},
   \code{\link{Argument}}, \code{\link{parseArgument}}
 }
-\concept{Argument}

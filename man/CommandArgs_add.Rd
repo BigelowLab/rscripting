@@ -22,4 +22,3 @@ Other CommandArgs: \code{\link{CommandArgs_add_argument}},
   \code{\link{CommandArgs_print_help}},
   \code{\link{CommandArgs_show}}, \code{\link{CommandArgs}}
 }
-\concept{CommandArgs}
