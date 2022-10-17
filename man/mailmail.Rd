@@ -4,7 +4,7 @@
 \alias{mailmail}
 \title{Send a simple mail via mail  - see \url{http://linux.die.net/man/1/nail}}
 \usage{
-mailmail(to = "btupper@bigelow.org", sbj = "mail mail", msg = paste("at",
+mailmail(to = "btupper@bigelow.org", sbj = "mailmail", msg = paste("at",
   Sys.time(), "you have mail mail"), attachment = NA, verbose = TRUE)
 }
 \arguments{
@@ -25,7 +25,8 @@ mailmail(to = "btupper@bigelow.org", sbj = "mail mail", msg = paste("at",
 Send a simple mail via mail  - see \url{http://linux.die.net/man/1/nail}
 }
 \seealso{
-Other mail: \code{\link{has_mail}}, \code{\link{has_mutt}},
+Other mail: \code{\link{charliemail}},
+  \code{\link{has_mail}}, \code{\link{has_mutt}},
   \code{\link{has_nail}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }

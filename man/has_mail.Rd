@@ -13,7 +13,8 @@ logical, TRUE if present
 Test if mail is installed on the host platform
 }
 \seealso{
-Other mail: \code{\link{has_mutt}}, \code{\link{has_nail}},
+Other mail: \code{\link{charliemail}},
+  \code{\link{has_mutt}}, \code{\link{has_nail}},
   \code{\link{mailmail}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }

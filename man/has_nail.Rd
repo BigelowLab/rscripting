@@ -15,7 +15,8 @@ Test if nail is installed on the host platform
 See \url{http://nail.sourceforge.net/}
 }
 \seealso{
-Other mail: \code{\link{has_mail}}, \code{\link{has_mutt}},
+Other mail: \code{\link{charliemail}},
+  \code{\link{has_mail}}, \code{\link{has_mutt}},
   \code{\link{mailmail}}, \code{\link{muttmail}},
   \code{\link{nailmail}}, \code{\link{sendmail}}
 }
